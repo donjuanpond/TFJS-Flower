@@ -40,4 +40,4 @@ This will put the running site on port 81. To access port 81, use localtunnel. I
 $ npm install -g localtunnel
 $ lt --port 81
 ```
-This will create a URL for you to go to and test out the code.# tfjs-flowers-classification
+This will create a URL for you to go to and test out the code.
