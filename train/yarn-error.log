@@ -1,0 +1,51 @@
+Arguments: 
+  C:\Program Files\nodejs\node.exe C:\Users\aadia\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js
+
+PATH: 
+  C:\Python311\Scripts\;C:\Python311\;C:\Program Files (x86)\Microsoft SDKs\Azure\CLI2\wbin;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\Git\cmd;C:\Program Files\Docker\Docker\resources\bin;C:\Program Files\nodejs\;C:\ProgramData\chocolatey\bin;C:\Users\aadia\AppData\Local\Microsoft\WindowsApps;;C:\Users\aadia\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\aadia\AppData\Local\Programs\Azure Dev CLI\;C:\Users\aadia\AppData\Roaming\npm
+
+Yarn version: 
+  1.22.19
+
+Node version: 
+  12.16.3
+
+Platform: 
+  win32 x64
+
+Trace: 
+  Error: ENOENT: no such file or directory, scandir 'C:\Users\aadia\Downloads\tfjs-tuberculosis-master\train\node_modules\core-js'
+
+npm manifest: 
+  {
+    "name": "train",
+    "version": "1.0.0",
+    "description": "Use the power of Machine Learning to diagnose TB from chest x-rays.",
+    "main": "main.js",
+    "engines": {
+      "node": ">=8.11.0"
+    },
+    "scripts": {
+      "train": "node main.js"
+    },
+    "repository": "git+https://github.com/SaschaDittmann/tfjs-tuberculosis.git",
+    "author": "Sascha Dittmann",
+    "license": "MIT",
+    "bugs": {
+      "url": "https://github.com/SaschaDittmann/tfjs-tuberculosis/issues"
+    },
+    "homepage": "https://github.com/SaschaDittmann/tfjs-tuberculosis#readme",
+    "dependencies": {
+      "@tensorflow/tfjs": "^4.10.0",
+      "@tensorflow/tfjs-node-gpu": "^1.2.7"
+    },
+    "devDependencies": {
+      "clang-format": "~1.2.2"
+    }
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile
