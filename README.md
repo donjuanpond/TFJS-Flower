@@ -6,7 +6,7 @@
 
 This example shows you how to use TensorFlow.JS for classifying flower images. To get this, I modified Sasha Dittman's repo here: 
 
-For the flower purposes, I added data and formatted it as the rest of the code needs in data-preprocess.ipynb, using the flower images I had downloaded on my PC. Flower images downloadable from https://storage.googleapis.com/download.tensorflow.org/example_images/flower_photos.tgz
+For the flower purposes, I added data and formatted it as the rest of the code needs in data-preprocess.ipynb, using the flower images I had downloaded on my PC. Flower images downloadable from https://drive.google.com/file/d/1JEbTzhiRWsOkoh1wcc3JclSurt4cC55F/view?usp=sharing - extract into the folder titled "train" so that there is a "data" folder in there. Models you will have to train and put into their folders as shown below before just launching the server.js.
 
 Prepare the node environments:
 ```sh
