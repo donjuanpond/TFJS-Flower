@@ -10,6 +10,22 @@ $("#image-selector").change(function () {
 	reader.readAsDataURL(file);
 });
 
+$("#webcam-capture-button").click(async function () {
+	const webcamElement = document.getElementById("webcam")
+	const webcam = await tf.data.webcam(webcamElement) 
+
+	const v = document.querySelector('video')
+	let c = document.createElement('canvas')
+	c.height = v.videoHeight || parseInt(v.style.height)
+	c.width = v.videoWidth || parseInt(v.style.width)
+	const ctx = c.getContext('2d')
+	ctx.drawImage(v, 0, 0)
+	console.log(c.toDataURL())
+
+	$("#selected-image").attr("src", c.toDataURL());
+	$("#prediction-list").empty();
+});
+
 let model;
 $( document ).ready(async function () {
 	$('.progress-bar').show();
@@ -20,6 +36,7 @@ $( document ).ready(async function () {
 });
 
 $("#predict-button").click(async function () {
+	console.log('predict button pressed');
 	let image = $('#selected-image').get(0);
 	
 	// Pre-process the image
