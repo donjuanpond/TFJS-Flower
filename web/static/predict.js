@@ -26,6 +26,53 @@ $("#webcam-capture-button").click(async function () {
 	$("#prediction-list").empty();
 });
 
+
+const webcamElement = document.getElementById("webcam")
+CLASS_NAMES = ['tulips', 'dandelion', 'daisy', 'sunflowers', 'roses']
+
+async function predictLoop() {
+	tf.tidy(async function() {
+		let videoFrameAsTensor = tf.browser.fromPixels(webcamElement)
+			.resizeNearestNeighbor([224,224]) // change the image size here
+			.toFloat()
+			.div(tf.scalar(255.0))
+			.expandDims();
+
+		// let prediction = model.predict(imageFeatures);
+		// let highestIndex = prediction.argMax();
+		// let predictionArray = Array.from(prediction.dataSync())
+		// document.getElementById('status').innerText = 'Prediction: ' + CLASS_NAMES[highestIndex] + ' with ' + Math.floor(predictionArray[highestIndex] * 100) + '% confidence';
+		// window.requestAnimationFrame(predictLoop);
+		let predictions = await model.predict(videoFrameAsTensor).data();
+		let top5 = Array.from(predictions)
+			.map(function (p, i) { // this is Array.map
+				return {
+					probability: p,
+					className: TARGET_CLASSES[i] // we are selecting the value from the obj
+				};
+			}).sort(function (a, b) {
+				return b.probability - a.probability;
+			}).slice(0, 5);
+	
+		$("#prediction-list").empty();
+		top5.forEach(function (p) {
+			$("#prediction-list").append(`<li>${p.className}: ${p.probability.toFixed(6)}</li>`);
+			});
+		console.log(predictions);
+		
+	});
+	setTimeout(function(){
+		window.requestAnimationFrame(predictLoop);
+	}, 300)
+}
+
+
+$("#webcam-predict-button").click(async function () {
+	const webcam = await tf.data.webcam(webcamElement) 
+	predictLoop();
+});
+
+
 let model;
 $( document ).ready(async function () {
 	$('.progress-bar').show();
