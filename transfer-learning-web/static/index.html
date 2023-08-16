@@ -62,6 +62,9 @@
 				<button id="webcam-capture-button" class="btn btn-primary float-left">Capture From Webcam</button>
 			</div>
 			<div class="col-6">
+				<button id="webcam-predict-button" class="btn btn-primary float-right">Predict from Webcam Stream</button>
+			</div>
+			<div class="col-6">
 				<button id="predict-button" class="btn btn-primary float-right">Predict</button>
 			</div>
 		</div>
@@ -71,7 +74,8 @@
 				<h2 class="ml-3">Image</h2>
 				<img id="selected-image" class="ml-3" width="250" alt="">
 			</div>
-			<video autoplay playsinline muted id="webcam" width="0" height="0"></video>
+			<video autoplay playsinline muted id="webcam"></video>
+			<p id="status"></p>
 			<div class="col-6">
 				<h2 class="ml-3">Predictions</h2>
 				<ol id="prediction-list"></ol>
