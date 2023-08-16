@@ -11,7 +11,6 @@ $("#image-selector").change(function () {
 });
 
 $("#webcam-capture-button").click(async function () {
-	const webcamElement = document.getElementById("webcam")
 	const webcam = await tf.data.webcam(webcamElement) 
 
 	const v = document.querySelector('video')
@@ -26,11 +25,60 @@ $("#webcam-capture-button").click(async function () {
 	$("#prediction-list").empty();
 });
 
+const webcamElement = document.getElementById("webcam")
+CLASS_NAMES = ['tulips', 'dandelion', 'daisy', 'sunflowers', 'roses']
+
+async function predictLoop() {
+	tf.tidy(async function() {
+		let videoFrameAsTensor = tf.browser.fromPixels(webcamElement)
+			.resizeNearestNeighbor([224,224]) // change the image size here
+			.toFloat()
+			.div(tf.scalar(255.0))
+			.expandDims();
+		let imageFeatures = base_model.predict(videoFrameAsTensor)
+		// let prediction = model.predict(imageFeatures);
+		// let highestIndex = prediction.argMax();
+		// let predictionArray = Array.from(prediction.dataSync())
+		// document.getElementById('status').innerText = 'Prediction: ' + CLASS_NAMES[highestIndex] + ' with ' + Math.floor(predictionArray[highestIndex] * 100) + '% confidence';
+		// window.requestAnimationFrame(predictLoop);
+		let predictions = await model.predict(imageFeatures).data();
+		let top5 = Array.from(predictions)
+			.map(function (p, i) { // this is Array.map
+				return {
+					probability: p,
+					className: TARGET_CLASSES[i] // we are selecting the value from the obj
+				};
+			}).sort(function (a, b) {
+				return b.probability - a.probability;
+			}).slice(0, 5);
+	
+		$("#prediction-list").empty();
+		top5.forEach(function (p) {
+			$("#prediction-list").append(`<li>${p.className}: ${p.probability.toFixed(6)}</li>`);
+			});
+		console.log(predictions);
+		
+	});
+	setTimeout(function(){
+		window.requestAnimationFrame(predictLoop);
+	}, 300)
+}
+
+
+$("#webcam-predict-button").click(async function () {
+	const webcam = await tf.data.webcam(webcamElement) 
+	predictLoop();
+});
+
 let model;
+let base_model;
 $( document ).ready(async function () {
 	$('.progress-bar').show();
     console.log( "Loading model..." );
     model = await tf.loadLayersModel('transfer-learning-model/model.json');
+	base_model = await tf.loadGraphModel(
+		'https://tfhub.dev/google/tfjs-model/imagenet/mobilenet_v3_small_100_224/classification/5/default/1',
+		{fromTFHub: true})
     console.log( "Model loaded." );
 	$('.progress-bar').hide();
 });
@@ -38,7 +86,9 @@ $( document ).ready(async function () {
 $("#predict-button").click(async function () {
 	console.log('predict button pressed');
 	let image = $('#selected-image').get(0);
-	
+	const base_model = await tf.loadGraphModel(
+		'https://tfhub.dev/google/tfjs-model/imagenet/mobilenet_v3_small_100_224/classification/5/default/1',
+		{fromTFHub: true})
 	// Pre-process the image
 	let tensor = tf.browser.fromPixels(image)
 		.resizeNearestNeighbor([224,224]) // change the image size here
@@ -46,9 +96,6 @@ $("#predict-button").click(async function () {
 		.div(tf.scalar(255.0))
 		.expandDims();
 	
-	const base_model = await tf.loadGraphModel(
-		'https://tfhub.dev/google/tfjs-model/imagenet/mobilenet_v3_small_100_224/classification/5/default/1',
-		{fromTFHub: true})
 	// console.log('warming up...');
 	// tf.tidy(function () {
 	// 	let answer = base_model.predict(tf.zeros([1, 224, 224, 3]));
