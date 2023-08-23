@@ -2,7 +2,7 @@
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 [![](https://ga4gh.datainsights.cloud/api?repo=tfjs-tuberculosis)](https://github.com/SaschaDittmann/gaforgithub)
 
-# TensorFlow.JS Example: Training Flower Clasasification images with Node.JS
+# TensorFlow.JS Example: Training Flower Classification images with Node.JS
 
 This example shows you how to use TensorFlow.JS for classifying flower images. To get this, I modified Sascha Dittmann's repo here: https://github.com/SaschaDittmann/tfjs-tuberculosis
 
