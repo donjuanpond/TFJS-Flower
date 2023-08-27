@@ -2,11 +2,12 @@
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 [![](https://ga4gh.datainsights.cloud/api?repo=tfjs-tuberculosis)](https://github.com/SaschaDittmann/gaforgithub)
 
-# TensorFlow.JS Example: Training Flower Classification images with Node.JS
-
+# TensorFlow.JS Example: Training Flower Classification algorithms on the web
 This example shows you how to use TensorFlow.JS for classifying flower images. To get this, I modified Sascha Dittmann's repo here: https://github.com/SaschaDittmann/tfjs-tuberculosis
 
 For the flower purposes, I added data and formatted it as the rest of the code needs in data-preprocess.ipynb, using the flower images I had downloaded on my PC. Flower images downloadable from https://drive.google.com/file/d/1JEbTzhiRWsOkoh1wcc3JclSurt4cC55F/view?usp=sharing - extract into the folder titled "train" so that there is a "data" folder in there. Models you will have to train and put into their folders as shown below before just launching the server.js.
+
+There is also code for general purpose classification using a VGG16 model.
 
 Prepare the node environments by cd-ing into each subfolder (train, web, and all the others) and running the following:
 ```sh
